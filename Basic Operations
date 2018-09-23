@@ -1,0 +1,156 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct node {
+    int data;
+    struct node *next;
+};
+struct node *head = NULL;
+
+//This function will Display the list.
+void printList(){
+    struct node *ptr = head;
+    while(ptr!=NULL){
+        printf("%d ",ptr->data);
+        ptr=ptr->next;
+    }
+
+}
+//Insert At beginnig
+void InsertAtBegin(int data){
+    //Create a Node
+    struct node *link;
+    link = malloc(sizeof(struct node));
+    link->data = data;
+    //This will point to old first node.
+    link->next=head;
+    //Storing the address of current first node to head.
+    head = link;
+}
+//Insert at the end.
+void InsertAtLast(int data){
+    //Create a node
+    struct node *link = malloc(sizeof(struct node));
+    link->data=data;
+    link->next=NULL;
+    struct node *temp=head;
+    while(temp->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=link;
+
+}
+//Insert at Kth position.
+void InsertAtPos(int data){
+    int i=1,count=0,K;
+    printf("Enter the position: ");
+    scanf("%d",&K);
+    struct node *link=malloc(sizeof(struct node));
+    link->data=data;
+    struct node *temp = head;
+     while(temp!=NULL){
+        count++;
+        temp=temp->next;
+    }
+    temp=head;
+    if(K-1>count){
+        printf("Data Not added to the list.\nThe value of position can not be greater than %d.\nThe current list is:\n",count+1);
+    }
+    else{
+            printf("The List after addition at %dth position:\n",K);
+    if(K!=1){
+
+         while( i!=K-1){
+        temp=temp->next;
+        i++;
+            }
+    if(temp!=NULL){
+    link->next=temp->next;
+    temp->next=link;
+                  }
+       }
+    else{
+     link->next=head;
+        head=link;
+    }
+    }
+}
+
+//Deletion from the beginnig.
+void DeleteAtFirst(){
+    head=head->next;
+    printf("\nThe List after deletion of element from beginning.");
+}
+//Deletion form the end.
+void DeleteAtEnd(){
+    struct node *temp=head;
+    while(temp->next->next!=NULL){
+        temp=temp->next;
+    }
+    temp->next=NULL;
+    printf("The List after Deletion from the end:\n");
+
+}
+//Deletion at Kth position.
+void DeleteAtPos(){
+    int i=1,count=0,K;
+    printf("\nEnter the position to be deleted:\n");
+    scanf("%d",&K);
+    struct node *temp=head;
+    while(temp!=NULL){
+        temp=temp->next;
+        count++;
+    }
+    temp=head;
+    if(K>count){
+        printf("\nThe value of position cann't be greater than %d.\nThe current List is :\n",count);
+
+    }
+    else{
+             printf("The List after deletion from the %dth Position:\n",K);
+
+        if(K!=1){
+            while(i!=K-1){
+                temp=temp->next;
+                i++;
+            }
+            temp->next=temp->next->next;
+        }
+        else{
+            head=head->next;
+        }
+
+    }
+
+}
+
+
+int main(){
+    InsertAtBegin(5);
+    InsertAtBegin(4);
+    InsertAtBegin(3);
+    InsertAtBegin(2);
+    InsertAtBegin(1);
+    printList();
+    printf("\n");
+    InsertAtLast(6);
+    InsertAtLast(7);
+    InsertAtLast(8);
+    printList();
+    printf("\n");
+    InsertAtPos(11);
+    printList();
+    DeleteAtFirst();
+    printf("\n");
+    printList();
+    printf("\n");
+    DeleteAtEnd();
+    printList();
+    printf("\n");
+    DeleteAtPos();
+    printList();
+
+
+    return 0;
+}
