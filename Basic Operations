@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 struct node {
     int data;
@@ -15,7 +14,7 @@ void printList(){
         printf("%d ",ptr->data);
         ptr=ptr->next;
     }
-
+    printf("\n");
 }
 //Insert At beginnig
 void InsertAtBegin(int data){
@@ -124,6 +123,21 @@ void DeleteAtPos(){
     }
 
 }
+//Reverse A Linked List
+void Reverse(){
+    struct node *prev,*current,*next;
+    current = head;
+    prev = NULL;
+    printf("The Reversed List is:\n");
+    while(current!=NULL)
+    {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current =next;
+    }
+    head=prev;
+}
 
 
 int main(){
@@ -149,6 +163,9 @@ int main(){
     printList();
     printf("\n");
     DeleteAtPos();
+    printList();
+    printf("\n");
+    Reverse();
     printList();
 
 
