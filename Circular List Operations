@@ -1,0 +1,214 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node {
+	int data;
+	struct  node* next;
+};
+struct node *head = NULL;
+//Insert at beginning.
+void Insert(int data){
+	struct node *link,*temp;
+	link = (struct node*)malloc(sizeof(struct node));
+	link->data = data;
+	link->next=NULL;
+
+	if(head==NULL){
+		head=link;
+		head->next=link;
+	}
+	else{
+	temp=head;
+	link->next=head;
+	
+	do{
+		temp=temp->next;
+	}while(temp->next!=head);
+	temp->next=link;
+	head=link;
+}
+}
+
+//Insert at the last
+void InsertAtLast(int data){
+	struct node* link,*temp;
+	link = (struct node*)malloc(sizeof(struct node));
+	link->data=data;
+	if(head==NULL){
+		head=link;
+		head->next=link;
+	}
+	else{
+		temp=head;
+		link->next=head;
+		while(temp->next!=head){
+			temp=temp->next;
+		}
+		temp->next=link;
+	}
+
+}
+
+//Insert At Any Position
+void InsertAtPos(int data){
+	struct  node* link,*temp;
+	int K,count=0;
+	temp=head;
+	link=(struct node*)malloc(sizeof(struct node));
+	printf("Enter the postion of Node to be added:");
+	scanf("%d",&K);
+	link->data=data;
+	if(K==1){
+		//printf("The List is Empty.\n");
+		
+		link->next=head;
+		while(temp->next!=head){
+			temp=temp->next;
+		}
+		temp->next=link;
+		head=link;
+	}
+	else{
+		while(temp->next!=head){
+			temp=temp->next;
+			count++;
+		}
+		if(K<count+3){
+			temp=head;
+			count=1;
+			while(count!=K-1){
+				temp=temp->next;
+					count++;
+			}
+		
+		link->next=temp->next;
+			temp->next=link;
+		}
+		else{
+			printf("The value of position should be less than %d\n",count+3);
+		}
+	}
+	
+	printf("The current List is\n");
+
+}
+//Deletion from beginning
+void DeleteAtFirst(){
+	struct node *temp=head;
+	if(head==NULL){
+		printf("Deletion is not possible. DeleteAtFirst Invoked.\n");
+	}
+	else{
+		if(temp->next==head){
+			free(temp);
+			head=NULL;
+			printf("No futher Deletion is possible.\n");
+			}
+			else{
+		while(temp->next!=head){
+			temp=temp->next;
+		}
+		temp->next=head->next;
+		head=head->next;
+	}
+	}
+	
+}
+//Deletion from the last
+void DeleteAtLast(){
+	struct node *temp=head;
+	
+	
+	 if(head==NULL){
+		printf("Deletion is not possible. DeleteAtLast Invoked.\n");
+	}
+	else{
+		if(temp->next==head){
+			free(temp);
+			head=NULL;
+			printf("No futher Deletion is possible.\n");
+		}
+		else{
+		while(temp->next->next!=head)
+		{
+			temp=temp->next;
+		}
+		free(temp->next);
+		temp->next=head;
+	       }
+	   }
+	
+}
+
+void PrintList() 
+{ 
+    struct node *temp = head; 
+    if (head != NULL) 
+    { 
+        do
+        { 
+            printf("%d ", temp->data); 
+            temp = temp->next; 
+        } 
+        while (temp != head); 
+    } 
+	else{
+		printf("List is Empty.");
+	}
+    printf("\n");
+} 
+
+int main(){
+	Insert(5);
+	Insert(4);
+	Insert(3);
+	Insert(2);
+	Insert(1);
+	//printf("\n");
+	PrintList();
+	InsertAtLast(10);
+	PrintList();
+	InsertAtLast(20);
+	PrintList();
+	Insert(110);
+	PrintList();
+	InsertAtPos(200);
+	PrintList();
+	Insert(55);
+	PrintList();
+	InsertAtLast(66);
+	PrintList();
+	InsertAtPos(90);
+	PrintList();
+	DeleteAtFirst();
+	PrintList();
+	DeleteAtLast();
+	PrintList();
+	DeleteAtLast();
+	DeleteAtLast();
+	DeleteAtLast();
+	PrintList();
+	DeleteAtLast();
+	DeleteAtLast();
+	DeleteAtLast();
+	PrintList();
+	DeleteAtLast();
+	DeleteAtLast();
+	PrintList();
+	DeleteAtLast();
+	DeleteAtLast();
+	PrintList();
+	//DeleteAtLast();
+	PrintList();
+	DeleteAtLast();
+	//DeleteAtFirst();
+	InsertAtLast(9);
+	PrintList();
+	Insert(5);
+	DeleteAtLast();
+	PrintList();
+	DeleteAtFirst();
+	PrintList();
+
+	return 0;
+}
